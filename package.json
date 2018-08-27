@@ -1,0 +1,27 @@
+{
+  "name": "sudoku",
+  "version": "1.0.0",
+  "description": "An investigation into the Sudoku puzzle style",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/filscentia/sudoku.git"
+  },
+  "author": "mbw",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/filscentia/sudoku/issues"
+  },
+  "homepage": "https://github.com/filscentia/sudoku#readme",
+  "dependencies": {
+    "cli-boxes": "^1.0.0",
+    "lodash": "^4.17.10",
+    "terminal-kit": "^1.26.2"
+  },
+  "devDependencies": {
+    "eslint": "^5.4.0"
+  }
+}
