@@ -4,7 +4,7 @@
   "description": "An investigation into the Sudoku puzzle style",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha test --recursive"
   },
   "repository": {
     "type": "git",
@@ -18,10 +18,14 @@
   "homepage": "https://github.com/filscentia/sudoku#readme",
   "dependencies": {
     "cli-boxes": "^1.0.0",
+    "emittery": "^0.4.1",
     "lodash": "^4.17.10",
     "terminal-kit": "^1.26.2"
   },
   "devDependencies": {
-    "eslint": "^5.4.0"
+    "chai": "^4.1.2",
+    "eslint": "^5.4.0",
+    "mocha": "^5.2.0",
+    "sinon": "^6.1.5"
   }
 }
