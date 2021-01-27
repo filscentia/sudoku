@@ -6,6 +6,7 @@ const TerminalKit = require('terminal-kit');
 const _ = require('lodash');
 const boxes = require('cli-boxes');
 const Grid = require('./grid');
+const List = require('./list');
 
 /**
  *
@@ -34,8 +35,8 @@ class ConsoleView {
         this.term.moveTo(1, 1, 'Sudoku');
         this.term.hideCursor();
 
-        let keyActions = {
-            CTRL_C: () =>{
+        const keyActions = {
+            CTRL_C: () => {
                 this.term.hideCursor();
                 this.terminate();
             },
@@ -64,7 +65,7 @@ class ConsoleView {
                 this.grid.getActiveRegion().cell.permit([2]);
             },
             '3': () => {
-            // this.term.red(5,1,'ONE');
+                // this.term.red(5,1,'ONE');
                 this.grid.getActiveRegion().cell.permit([3]);
             },
             '4': () => {
@@ -72,7 +73,7 @@ class ConsoleView {
                 this.grid.getActiveRegion().cell.permit([4]);
             },
             '5': () => {
-            // this.term.red(5,1,'ONE');
+                // this.term.red(5,1,'ONE');
                 this.grid.getActiveRegion().cell.permit([5]);
             },
             '6': () => {
@@ -90,7 +91,7 @@ class ConsoleView {
             '9': () => {
                 // this.term.red(5,1,'ONE');
                 this.grid.getActiveRegion().cell.permit([9]);
-            }
+            },
         };
 
         this.term.on('key', (name, matches, data) => {
@@ -102,19 +103,21 @@ class ConsoleView {
 
         for (let x = 0; x < 9; x++) {
             for (let y = 0; y < 9; y++) {
-                let position = { x, y };
-                let region = this.grid.getRegion(position);
+                const position = { x, y };
+                const region = this.grid.getRegion(position);
                 region.draw();
             }
         }
         this.drawLines();
+        this.list = new List(this.getTerminal(), this.model);
+        this.list.draw();
         this.moveCursorToActive();
     }
 
     /**
      * @return {Model} datamodel
      */
-    getModel(){
+    getModel() {
         return this.model;
     }
 
@@ -174,15 +177,15 @@ class ConsoleView {
      * @param {*} cellPosition
      */
     getScreenPosition(cellPosition) {
-        let x = cellPosition.x;
-        let y = cellPosition.y;
+        const x = cellPosition.x;
+        const y = cellPosition.y;
         // console.log(this);
-        let offset = {
+        const offset = {
             x: x * 4 + this.gridOffset.x,
-            y: y * 4 + this.gridOffset.y
+            y: y * 4 + this.gridOffset.y,
         };
-        offset.x = offset.x*2;
-        offset.x += Math.floor(x / 3)*2; // extra space horizontal
+        offset.x = offset.x * 2;
+        offset.x += Math.floor(x / 3) * 2; // extra space horizontal
         return offset;
     }
 
@@ -191,7 +194,7 @@ class ConsoleView {
      * @param {*} cell
      */
     moveCursorToActive() {
-        let screenPosition = this.grid.getActiveRegion().getScreenPosition();
+        const screenPosition = this.grid.getActiveRegion().getScreenPosition();
         this.term.moveTo(screenPosition.x, screenPosition.y);
     }
 }

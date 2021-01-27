@@ -1,50 +1,64 @@
-'use strict';
-const _ = require('lodash');
-const Emittery = require('emittery');
+
+// import Emittery from 'emittery';
 const VALID = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+import _ from 'lodash';
+import { Model } from '.';
+import Group from './group';
+import { Position } from './position';
+
 
 /**
  * A single cell within the puzzle, can have values as defined in set VALID
  * Will emit 'COLLAPSED' events when the cardinality of candidate set is 1
  *
  */
-class Cell  {
+export default class Cell {
 
+    private position:Position;
+    private candidates:number[];
+    private groups: Group[];
+    private model:Model;
     /**
-   * Creates the cell
-   * @param {*} position
-   */
-    constructor(position) {
+     * Creates the cell
+     * @param {*} position
+     */
+    constructor(position: Position, model:Model) {
         this.position = _.cloneDeep(position);
         this.candidates = _.cloneDeep(VALID);
-        this.emittery = new Emittery();
 
+        this.groups = [];
+        this.model = model;
+    }
+
+    addToGroup(group:Group) {
+        this.groups.push(group);
     }
 
     /** */
-    onCollapse(callback){
-        this.emittery.on('COLLAPSE',callback);
+    onCollapse(callback:any) {
+        this.model.getEmittery().on('COLLAPSE', callback);
     }
 
     /**
      *
      */
-    onUpdate(callback){
-        this.emittery.on('UPDATE',callback);
+    onUpdate(callback:any) {
+        this.model.getEmittery().on('UPDATE', callback);
     }
 
     /**
      *
      */
-    _collapse(){
-        this.emittery.emit('COLLAPSE',this);
+    _collapse() {
+        this.model.getEmittery().emit('COLLAPSE', this);
     }
 
     /**
      *
      */
-    _update(){
-        this.emittery.emit('UPDATE',this);
+    _update() {
+        this.model.getEmittery().emit('UPDATE', this);
     }
 
     /**
@@ -72,32 +86,32 @@ class Cell  {
      * @return {int} collopased value
      */
     getCollapseValue() {
-        if (this.isCollapsed){
+        if (this.isCollapsed()) {
             return this.candidates[0];
         } else {
             throw new Error('Cell not collapsed');
         }
     }
 
-    /** */
-    permit(permissions){
-        let restrictions = _.cloneDeep(VALID);
-        _.pull(restrictions,...permissions);
+    /** Sets the cell directly to the POSSIBLE values */
+    permit(permissions:number[]) {
+        const restrictions = _.cloneDeep(VALID);
+        _.pull(restrictions, ...permissions);
         this.restrict(restrictions);
     }
     /**
      *
      * @param {int[]} restrictions an array of values that should be removed from the candidate set
      */
-    restrict(restrictions){
-        if (this.isCollapsed()){
+    restrict(restrictions:number[]) {
+        if (this.isCollapsed()) {
             // if already collapsed, then just issue an update
             this._update();
-        }else {
+        } else {
             // remove from the cadidates
-            this.candidates = _.difference(this.candidates,restrictions);
+            this.candidates = _.difference(this.candidates, restrictions);
             // if cardinality is 1 emit collapse event
-            if (this.candidates.length===1){
+            if (this.candidates.length === 1) {
                 this._collapse();
             } else {
                 this._update();
@@ -107,6 +121,3 @@ class Cell  {
         // error case where it's <1?
     }
 }
-
-module.exports = Cell;
-module.exports.VALID = VALID;
