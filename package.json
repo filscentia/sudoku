@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/filscentia/sudoku#readme",
   "dependencies": {
+    "@ampretia/qmit": "file:ampretia-qmit-0.0.10.tgz",
     "cli-boxes": "^3.0.0",
     "emittery": "^0.8.1",
     "lodash": "^4.17.20",

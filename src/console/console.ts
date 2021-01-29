@@ -1,41 +1,60 @@
-// Require the lib, get a working terminal
+import { Model } from '../model';
+import Position from '../position';
 
-'use strict';
-
-const TerminalKit = require('terminal-kit');
-const _ = require('lodash');
-const boxes = require('cli-boxes');
-const Grid = require('./grid');
-const List = require('./list');
-
+import TerminalKit from 'terminal-kit';
+import _ from 'lodash';
+import boxes from 'cli-boxes';
+import Grid from './grid';
+import List from './list';
+import fs from 'fs';
 /**
  *
  */
-class ConsoleView {
+export default class ConsoleView {
+    private terminateFn: any;
+    private term: TerminalKit.Terminal;
+    private model: Model;
+    private gridOffset: Position;
+    private grid: Grid;
+    private list: List;
+    log: any;
+
     /**
      *
      * @param {*} terminateFn
      * @param {*} model
      */
-    constructor(terminateFn, model) {
+    constructor(terminateFn: any, model: Model) {
         this.terminateFn = terminateFn;
         this.term = TerminalKit.terminal;
 
         this.model = model;
-        this.gridOffset = { x: 5, y: 5 };
+        this.gridOffset = Position.new({ x: 5, y: 5 });
+        this.grid = new Grid(this);
+        this.list = new List(this.term, model);
+
+        this.log = fs.openSync('log.txt', 'a');
+    }
+
+    _log(x: any) {
+        fs.writeFileSync(this.log, `${x.toString()}\n`);
     }
 
     /**
      *
      */
     init() {
-        this.term.grabInput();
+        this.term.grabInput(true);
         this.term.fullscreen(true);
         // Move the cursor at the upper-left corner
         this.term.moveTo(1, 1, 'Sudoku');
         this.term.hideCursor();
 
-        const keyActions = {
+        interface KeyBinding {
+            [key: string]: any;
+        }
+        this._log(`\n\nSudoko`);
+        const keyActions: KeyBinding = {
             CTRL_C: () => {
                 this.term.hideCursor();
                 this.terminate();
@@ -57,44 +76,35 @@ class ConsoleView {
                 this.moveCursorToActive();
             },
             '1': () => {
-                // this.term.red(5,1,'ONE');
                 this.grid.getActiveRegion().cell.permit([1]);
             },
             '2': () => {
-                // this.term.red(5,1,'ONE');
                 this.grid.getActiveRegion().cell.permit([2]);
             },
             '3': () => {
-                // this.term.red(5,1,'ONE');
                 this.grid.getActiveRegion().cell.permit([3]);
             },
             '4': () => {
-                // this.term.red(5,1,'ONE');
                 this.grid.getActiveRegion().cell.permit([4]);
             },
             '5': () => {
-                // this.term.red(5,1,'ONE');
                 this.grid.getActiveRegion().cell.permit([5]);
             },
             '6': () => {
-                // this.term.red(5,1,'ONE');
                 this.grid.getActiveRegion().cell.permit([6]);
             },
             '7': () => {
-                // this.term.red(5,1,'ONE');
                 this.grid.getActiveRegion().cell.permit([7]);
             },
             '8': () => {
-                // this.term.red(5,1,'ONE');
                 this.grid.getActiveRegion().cell.permit([8]);
             },
             '9': () => {
-                // this.term.red(5,1,'ONE');
                 this.grid.getActiveRegion().cell.permit([9]);
             },
         };
 
-        this.term.on('key', (name, matches, data) => {
+        this.term.on('key', (name: any) => {
             if (keyActions[name]) {
                 keyActions[name]();
             }
@@ -103,7 +113,7 @@ class ConsoleView {
 
         for (let x = 0; x < 9; x++) {
             for (let y = 0; y < 9; y++) {
-                const position = { x, y };
+                const position = Position.new({ x, y });
                 const region = this.grid.getRegion(position);
                 region.draw();
             }
@@ -140,14 +150,15 @@ class ConsoleView {
      *
      */
     drawLines() {
-        this.drawHLine({ x: 10, y: 4 }, { x: 83, y: 4 });
-        this.drawHLine({ x: 10, y: 16 }, { x: 83, y: 16 });
-        this.drawHLine({ x: 10, y: 28 }, { x: 83, y: 28 });
-        this.drawHLine({ x: 10, y: 40 }, { x: 83, y: 40 });
+        this._log('Drawing lines');
+        this.drawHLine(Position.new({ x: 10, y: 4 }), Position.new({ x: 83, y: 4 }));
+        this.drawHLine(Position.new({ x: 10, y: 16 }), Position.new({ x: 83, y: 16 }));
+        this.drawHLine(Position.new({ x: 10, y: 28 }), Position.new({ x: 83, y: 28 }));
+        this.drawHLine(Position.new({ x: 10, y: 40 }), Position.new({ x: 83, y: 40 }));
 
-        this.drawVLine({ x: 33, y: 5 }, { x: 33, y: 40 });
-        this.drawVLine({ x: 59, y: 5 }, { x: 59, y: 40 });
-        this.drawVLine({ x: 33, y: 5 }, { x: 33, y: 40 });
+        this.drawVLine(Position.new({ x: 33, y: 5 }), Position.new({ x: 33, y: 40 }));
+        this.drawVLine(Position.new({ x: 59, y: 5 }), Position.new({ x: 59, y: 40 }));
+        this.drawVLine(Position.new({ x: 33, y: 5 }), Position.new({ x: 33, y: 40 }));
     }
 
     /**
@@ -155,7 +166,7 @@ class ConsoleView {
      * @param {*} start
      * @param {*} end
      */
-    drawHLine(start, end) {
+    drawHLine(start: Position, end: Position) {
         for (let x = start.x; x < end.x; x++) {
             this.term.moveTo(x, start.y, boxes.double.bottom);
         }
@@ -166,7 +177,7 @@ class ConsoleView {
      * @param {*} start
      * @param {*} end
      */
-    drawVLine(start, end) {
+    drawVLine(start: Position, end: Position) {
         for (let y = start.y; y < end.y; y++) {
             this.term.moveTo(start.x, y, boxes.double.right);
         }
@@ -176,7 +187,7 @@ class ConsoleView {
      *
      * @param {*} cellPosition
      */
-    getScreenPosition(cellPosition) {
+    getScreenPosition(cellPosition: Position) {
         const x = cellPosition.x;
         const y = cellPosition.y;
         // console.log(this);
@@ -198,5 +209,3 @@ class ConsoleView {
         this.term.moveTo(screenPosition.x, screenPosition.y);
     }
 }
-
-module.exports = ConsoleView;

@@ -1,3 +1,3 @@
 import Console from './console';
 
-export { Console }
+export { Console };

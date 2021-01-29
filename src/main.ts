@@ -1,13 +1,12 @@
 'use strict';
 
-import {Model} from './model';
-import Console from './console';
-
-
+import { Model } from './model';
+import { Console } from './console';
 
 const terminate = () => {
     process.exit();
 };
+
 const model = new Model();
 model.setup();
 

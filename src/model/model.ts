@@ -1,20 +1,20 @@
-
 import Cell from './cell';
-import Emittery from 'emittery';
+
 import Group from './group';
-import { Position } from './position';
+import Position from '../position';
+import { Qmit } from '@ampretia/qmit';
+import { ModelEvent } from './event';
 
 /**
  * Model factory
  */
 export default class Model {
-
     private rowGroups: Group[];
-    private columnGroups: Group[];;
-    private regionGroups: Group[];;
+    private columnGroups: Group[];
+    private regionGroups: Group[];
     private directAccess;
-    private eventQueue: Event[];
-    private emittery:Emittery;
+
+    private qemit: Qmit<ModelEvent>;
 
     /** */
     constructor() {
@@ -25,12 +25,8 @@ export default class Model {
         for (let i = 0; i < 9; i++) {
             this.directAccess[i] = new Array(9);
         }
-        this.eventQueue = [];
-        this.emittery = new Emittery();
-    }
 
-    getEmittery() {
-        return this.emittery;
+        this.qemit = new Qmit<ModelEvent>();
     }
 
     /**
@@ -38,7 +34,7 @@ export default class Model {
      * @param {Position} position direct access position
      * @return {Cell} at that position
      */
-    getCell(position:Position) {
+    getCell(position: Position) {
         return this.directAccess[position.x][position.y];
     }
 
@@ -47,16 +43,15 @@ export default class Model {
      * @param {*} callback
      */
     onEvent(callback: any) {
-        this.emittery.on('EVENT', callback);
+        this.qemit.on('EVENT', callback);
     }
 
     getEventQueue() {
-        return this.eventQueue;
+        return this.qemit;
     }
 
-    addEvent(evt: Event) {
-        this.eventQueue.push(evt);
-        this.emittery.emit('EVENT', this);
+    addEvent(evt: ModelEvent) {
+        this.qemit.emit('EVENT', evt);
     }
 
     /**
@@ -64,15 +59,15 @@ export default class Model {
      */
     setup() {
         for (let y = 0; y < 9; y++) {
-            const group = new Group(`R${y}`,this);
+            const group = new Group(`R${y}`, this);
             this.rowGroups.push(group);
         }
         for (let x = 0; x < 9; x++) {
-            const group = new Group(`C${x}`,this);
+            const group = new Group(`C${x}`, this);
             this.columnGroups.push(group);
         }
         for (let r = 0; r < 9; r++) {
-            const group = new Group(`S${r}`,this);
+            const group = new Group(`S${r}`, this);
             this.regionGroups.push(group);
         }
 
@@ -81,7 +76,7 @@ export default class Model {
             for (let y = 0; y < 9; y++) {
                 const cg = this.columnGroups[y];
 
-                const c = new Cell({ x, y }, this);
+                const c = new Cell(Position.new({ x, y }), this);
                 this.directAccess[x][y] = c;
                 cg.addCell(c);
                 rg.addCell(c);
