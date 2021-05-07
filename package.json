@@ -24,7 +24,7 @@
     "@ampretia/qmit": "file:ampretia-qmit-0.0.10.tgz",
     "cli-boxes": "^3.0.0",
     "emittery": "^0.8.1",
-    "lodash": "^4.17.20",
+    "lodash": "^4.17.21",
     "terminal-kit": "^1.45.5"
   },
   "devDependencies": {
