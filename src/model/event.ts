@@ -9,6 +9,10 @@ export class ModelEvent {
         this.type = type;
     }
 
+    getType(): string {
+        return this.type;
+    }
+
     toString() {
         return this.type;
     }
@@ -23,7 +27,7 @@ export class CollapseEvent extends ModelEvent {
     }
 
     toString() {
-        return super.toString() + ' ' + this.cell.toString();
+        return super.toString() + '@' + this.cell.toString();
     }
 }
 

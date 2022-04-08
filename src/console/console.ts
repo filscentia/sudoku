@@ -102,6 +102,12 @@ export default class ConsoleView {
             '9': () => {
                 this.grid.getActiveRegion().cell.permit([9]);
             },
+            c: async () => {
+                this.model.releaseEvents('COLLAPSE');
+            },
+            u: () => {
+                this.model.runUniqueInGroup();
+            },
         };
 
         this.term.on('key', (name: any) => {

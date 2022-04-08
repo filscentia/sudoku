@@ -4,6 +4,7 @@ import Group from './group';
 import Position from '../position';
 import { Qmit } from '@ampretia/qmit';
 import { ModelEvent } from './event';
+import winston from 'winston';
 
 /**
  * Model factory
@@ -13,7 +14,7 @@ export default class Model {
     private columnGroups: Group[];
     private regionGroups: Group[];
     private directAccess;
-
+    uiCallback: any;
     private qemit: Qmit<ModelEvent>;
 
     /** */
@@ -40,18 +41,38 @@ export default class Model {
 
     /**
      *
+     */
+    onUpdate(callback: any) {
+        this.uiCallback = callback;
+    }
+
+    /**
+     *
      * @param {*} callback
      */
-    onEvent(callback: any) {
-        this.qemit.on('EVENT', callback);
+    onEvent(name: string, callback: (eventData: any) => void | Promise<void>) {
+        this.qemit.on(name, callback);
     }
 
-    getEventQueue() {
-        return this.qemit;
+    public eventQueue(type: string): ModelEvent[] | undefined {
+        return this.qemit.queue(type);
     }
 
-    addEvent(evt: ModelEvent) {
-        this.qemit.emit('EVENT', evt);
+    async addEvent(evt: ModelEvent) {
+        await this.qemit.emit(evt.getType(), evt);
+        this.uiCallback();
+    }
+
+    async releaseEvents(type: string, count = 0) {
+        const c = await this.qemit.gate('COLLAPSE', count);
+        winston.info(`Release ${c} events`);
+        this.uiCallback();
+    }
+
+    runUniqueInGroup() {
+        this.rowGroups.forEach((rg) => rg.uniqueInGroup());
+        this.columnGroups.forEach((cg) => cg.uniqueInGroup());
+        this.regionGroups.forEach((rg) => rg.uniqueInGroup());
     }
 
     /**
