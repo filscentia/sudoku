@@ -6,7 +6,7 @@ import { Model } from '.';
 import Group from './group';
 import Position from '../position';
 import { CollapseEvent, UpdateEvent } from './event';
-
+import winston from 'winston';
 /**
  * A single cell within the puzzle, can have values as defined in set VALID
  * Will emit 'COLLAPSED' events when the cardinality of candidate set is 1
@@ -30,8 +30,18 @@ export default class Cell {
         this.model = model;
     }
 
-    addToGroup(group: Group) {
+    public getId(): string {
+        return `CELL${this.position.toString()}`;
+    }
+
+    public addToGroup(group: Group) {
         this.groups.push(group);
+    }
+
+    public getGroupIds(): string[] {
+        return this.groups.map((g) => {
+            return g.getId();
+        }); // ? just the ids, incase this is altered
     }
 
     /**
@@ -87,11 +97,18 @@ export default class Cell {
         }
     }
 
-    /** Sets the cell directly to the POSSIBLE values */
+    /** Sets the cell directly to the POSSIBLE values
+     * if candidates = 3,5,6,7  permits  2, 5,6 =>5,6
+     */
     permit(permissions: number[]) {
-        const restrictions = _.cloneDeep(VALID);
-        _.pull(restrictions, ...permissions);
-        this.restrict(restrictions);
+        if (!this.isCollapsed()) {
+            this.candidates = _.intersection(this.candidates, permissions);
+            // if cardinality is 1 emit collapse event
+            if (this.candidates.length === 1) {
+                this._collapse();
+            }
+            this._update();
+        }
     }
     /**
      *
@@ -105,8 +122,13 @@ export default class Cell {
             if (this.candidates.length === 1) {
                 this._collapse();
             }
+            this._update();
         }
-        this._update();
+
         // error case where it's <1?
+    }
+
+    public toString(): string {
+        return this.position.toString();
     }
 }

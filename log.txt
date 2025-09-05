@@ -42,3 +42,238 @@ Drawing lines
 
 Sudoko
 Drawing lines
+
+
+Sudoko
+Drawing lines
+
+
+Sudoko
+Drawing lines
+
+
+Sudoko
+Drawing lines
+
+
+Sudoko
+Drawing lines
+
+
+Sudoko
+Drawing lines
+
+
+Sudoko
+Drawing lines
+
+
+Sudoko
+Drawing lines
+{"message":"Sudoku starting....","level":"info"}
+
+
+Sudoko
+Drawing lines
+{"message":"Sudoku starting....","level":"info"}
+{"message":"Release 0 events","level":"info"}
+{"message":"Release 2 events","level":"info"}
+
+
+Sudoko
+Drawing lines
+{"message":"Sudoku starting....","level":"info"}
+{"message":"Release 0 events","level":"info"}
+{"message":"Release 0 events","level":"info"}
+{"message":"Release 0 events","level":"info"}
+{"message":"Release 0 events","level":"info"}
+
+
+Sudoko
+Drawing lines
+{"message":"Sudoku starting....","level":"info"}
+
+
+Sudoko
+Drawing lines
+info: Sudoku starting....
+info: Release 2 events
+info: Release 3 events
+info: Release 0 events
+info: Release 0 events
+info: Release 1 events
+
+
+Sudoko
+Drawing lines
+
+
+Sudoko
+Drawing lines
+info: Sudoku starting....
+
+
+Sudoko
+Drawing lines
+info: Sudoku starting....
+info: Release 4 events
+
+
+Sudoko
+Drawing lines
+info: Sudoku starting....
+info: Release 3 events
+
+
+Sudoko
+Drawing lines
+info: Sudoku starting....
+info: Release 7 events
+info: Release 0 events
+info: Release 2 events
+info: Release 2 events
+info: Release 1 events
+info: Release 1 events
+info: Release 1 events
+info: Release 1 events
+info: Release 1 events
+info: Release 0 events
+
+
+Sudoko
+Drawing lines
+info: Sudoku starting....
+info: Release 8 events
+info: Release 2 events
+
+
+Sudoko
+Drawing lines
+info: Sudoku starting....
+info: Release 4 events
+info: Release 1 events
+info: Release 1 events
+
+
+Sudoko
+Drawing lines
+info: Sudoku starting....
+
+
+Sudoko
+Drawing lines
+info: Sudoku starting....
+
+
+Sudoko
+Drawing lines
+info: Sudoku starting....
+info: Release 2 events
+info: Release 0 events
+info: Release 0 events
+info: Release 0 events
+info: Release 0 events
+
+
+Sudoko
+Drawing lines
+info: Sudoku starting....
+info: Release 2 events
+info: Release 0 events
+info: Release 0 events
+info: Release 0 events
+info: Release 2 events
+info: Release 0 events
+info: Release 7 events
+info: Release 0 events
+info: Release 0 events
+
+
+Sudoko
+Drawing lines
+info: Sudoku starting....
+info: Release 10 events
+
+
+Sudoko
+Drawing lines
+info: Sudoku starting....
+info: Release 2 events
+
+
+Sudoko
+Drawing lines
+info: Sudoku starting....
+info: Release 2 events
+info: Release 1 events
+info: Release 6 events
+
+
+Sudoko
+Drawing lines
+info: Sudoku starting....
+info: 2,3,4,5,6,7,8,9
+info: Release 1 events
+info: 2,3,4,5,6,7,8,9
+
+
+Sudoko
+Drawing lines
+info: Sudoku starting....
+info: 2,3,4,5,6,7,8,9
+info: Release 1 events
+info: 2,3,4,5,6,7,8,9
+info: 3,4,5,6,7,8,9
+info: 2,4,5,6,7,8,9
+info: 2,3,5,6,7,8,9
+info: Release 3 events
+
+
+Sudoko
+Drawing lines
+info: Sudoku starting....
+info: Release 5 events
+
+
+Sudoko
+Drawing lines
+info: Sudoku starting....
+info: Release 3 events
+info: Release 6 events
+info: Release 2 events
+
+
+Sudoko
+Drawing lines
+info: Sudoku starting....
+info: Release 8 events
+info: Release 3 events
+info: Release 9 events
+info: Release 6 events
+info: Release 1 events
+info: Release 1 events
+info: Release 1 events
+info: Release 1 events
+info: Release 1 events
+info: Release 1 events
+info: Release 1 events
+info: Release 1 events
+info: Release 1 events
+info: Release 2 events
+info: Release 1 events
+info: Release 1 events
+
+
+Sudoko
+Drawing lines
+info: Sudoku starting....
+info: Release 5 events
+info: Release 2 events
+info: Release 1 events
+info: Release 2 events
+info: Release 0 events
+info: Release 1 events
+info: Release 0 events
+info: Release 2 events
+info: Release 1 events
+info: Release 1 events
