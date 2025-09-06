@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use strict';
 
-import Position from '../position';
-import Region from './region';
+import Position from '../position.js';
+import Region from './region.js';
 
 const XSIZE = 9;
 const YSIZE = 9;

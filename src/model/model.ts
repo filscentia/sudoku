@@ -1,9 +1,10 @@
-import Cell from './cell';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import Cell from './cell.js';
 
-import Group from './group';
-import Position from '../position';
+import Group from './group.js';
+import Position from '../position.js';
 import { Qmit } from '@ampretia/qmit';
-import { ModelEvent } from './event';
+import { ModelEvent } from './event.js';
 import winston from 'winston';
 
 /**

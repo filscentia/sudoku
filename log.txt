@@ -277,3 +277,28 @@ info: Release 0 events
 info: Release 2 events
 info: Release 1 events
 info: Release 1 events
+
+
+Sudoko
+Drawing lines
+info: Sudoku starting....
+
+
+Sudoko
+Drawing lines
+info: Sudoku starting....
+
+
+Sudoko
+Drawing lines
+info: Sudoku starting....
+info: Release 1 events
+
+
+Sudoko
+Drawing lines
+info: Sudoku starting....
+info: Release 25 events
+info: Release 1 events
+info: Release 1 events
+info: Release 1 events

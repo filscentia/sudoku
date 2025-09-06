@@ -1,7 +1,8 @@
-import { Model } from '../model';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import Model from '../model/model.js';
 
 import TerminalKit from 'terminal-kit';
-import { ModelEvent } from '../model/event';
+import { ModelEvent } from '../model/event.js';
 
 export default class List {
     term: any;
@@ -44,5 +45,3 @@ export default class List {
         this.term.restoreCursor();
     }
 }
-
-module.exports = List;

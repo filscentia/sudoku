@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /**
  * A specific region on the screen - for example the 3x3 grids in classic Sudoku
  */

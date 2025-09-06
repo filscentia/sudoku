@@ -1,12 +1,14 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // import Emittery from 'emittery';
 const VALID = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 import _ from 'lodash';
-import { Model } from '.';
-import Group from './group';
-import Position from '../position';
-import { CollapseEvent, UpdateEvent } from './event';
-import winston from 'winston';
+
+import Group from './group.js';
+import Position from '../position.js';
+import { CollapseEvent } from './event.js';
+import Model from './model.js';
+// import winston from 'winston';
 /**
  * A single cell within the puzzle, can have values as defined in set VALID
  * Will emit 'COLLAPSED' events when the cardinality of candidate set is 1
@@ -17,6 +19,7 @@ export default class Cell {
     private candidates: number[];
     private groups: Group[];
     private model: Model;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     uiCallback: any;
     /**
      * Creates the cell

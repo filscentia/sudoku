@@ -1,7 +1,7 @@
 'use strict';
 
-import { Model } from './model';
-import { Console } from './console';
+import Model from './model/model.js';
+import Console from './console/console.js';
 import winston from 'winston';
 
 winston.configure({

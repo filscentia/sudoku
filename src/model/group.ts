@@ -1,8 +1,6 @@
-'use strict';
-import _ from 'lodash';
-import { Model } from '.';
-import Cell from './cell';
-import { CollapseEvent } from './event';
+import Cell from './cell.js';
+import { CollapseEvent } from './event.js';
+import Model from './model.js';
 
 const VALID = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 /**

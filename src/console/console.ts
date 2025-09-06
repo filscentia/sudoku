@@ -1,11 +1,12 @@
-import { Model } from '../model';
-import Position from '../position';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import Model from '../model/model.js';
+import Position from '../position.js';
 
 import TerminalKit from 'terminal-kit';
-import _ from 'lodash';
+
 import boxes from 'cli-boxes';
-import Grid from './grid';
-import List from './list';
+import Grid from './grid.js';
+import List from './list.js';
 import fs from 'fs';
 /**
  *
@@ -48,6 +49,7 @@ export default class ConsoleView {
         this.term.fullscreen(true);
         // Move the cursor at the upper-left corner
         this.term.moveTo(1, 1, 'Sudoku');
+        this.term.moveTo(1, 2, 'C to release events');
         this.term.hideCursor();
 
         interface KeyBinding {

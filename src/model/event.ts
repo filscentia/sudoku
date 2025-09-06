@@ -1,6 +1,6 @@
 'use strict';
 
-import Cell from './cell';
+import Cell from './cell.js';
 
 export class ModelEvent {
     private type: string;
